@@ -17,12 +17,14 @@
     "discord.js": "^11.1.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.0",
+    "nconf": "^0.8.4",
     "uws": "^8.14.0"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.0",
     "@types/lodash": "^4.14.67",
     "@types/mongoose": "^4.7.18",
+    "@types/nconf": "0.0.34",
     "@types/node": "^8.0.6",
     "nodemon": "^1.11.0",
     "typescript": "^2.4.1"

@@ -1,14 +1,33 @@
 import * as Discord from 'discord.js';
 import * as _ from 'lodash';
 import * as bunyan from 'bunyan';
+import * as nconf from 'nconf';
+
 import { default as commands } from './commands';
 import { BotContext } from './context';
 
+function getConfigEnvironment() {
+    switch (process.env.NODE_ENV) {
+        case "production":
+            return "";
+
+        default:
+            return "dev";
+    }
+}
+
 const log = bunyan.createLogger({ name: 'dirty-fingernails' });
+nconf
+    .defaults({
+        bot: {
+            commandPrefix: '!!'
+        }
+    })
+    .env().file(`config.${getConfigEnvironment()}.json`);
 
 const client = new Discord.Client();
-const token = 'MzMwMjA5ODY4MzY1NTYxODU3.DDdtnw.jNNl80B3FFLcBFNZvAWn8FEkAAA';
-const commandPrefix = '!!';
+const token = nconf.get('discord:token');
+const commandPrefix = nconf.get('bot:commandPrefix');
 const context = new BotContext();
 
 client.on('ready', () => {
