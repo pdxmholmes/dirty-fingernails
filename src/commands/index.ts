@@ -2,9 +2,9 @@ import * as Discord from 'discord.js';
 import { BotContext } from '../context';
 
 const commands = {
-    'newflight': function (context: BotContext, msg: Discord.Message, args: string[]) {
+    newflight: (context: BotContext, msg: Discord.Message, args: string[]) => {
         if (args.length < 2) {
-            return msg.reply('Usage: newflight <name> <startDate> [<campaign>]')
+            return msg.reply('Usage: newflight <name> <startDate> [<campaign>]');
         }
 
         const name = args[0];
@@ -14,7 +14,7 @@ const commands = {
         msg.reply(`Added new flight ${name} starting at ${startTime.toUTCString()}`);
     },
 
-    'flights': function (context: BotContext, msg: Discord.Message, args: string[]) {
+    flights: (context: BotContext, msg: Discord.Message, args: string[]) => {
         if (context.flights.length < 1) {
             return msg.reply(`No flights currently scheduled`);
         }
@@ -26,9 +26,9 @@ const commands = {
         msg.reply(`Currently scheduled flights: ${flights}`);
     },
 
-    'help': function (context: BotContext, msg: Discord.Message, args: string[]) {
+    help: (context: BotContext, msg: Discord.Message, args: string[]) => {
         msg.member.send('This is the help!');
     }
-}
+};
 
 export default commands;

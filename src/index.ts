@@ -8,11 +8,11 @@ import { BotContext } from './context';
 
 function getConfigEnvironment(): string {
     switch (process.env.NODE_ENV) {
-        case "production":
-            return "";
+        case 'production':
+            return '';
 
         default:
-            return "dev";
+            return 'dev';
     }
 }
 

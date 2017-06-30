@@ -10,4 +10,4 @@ export class BotContext {
     }
 
     readonly flights: Flight[];
-};
+}

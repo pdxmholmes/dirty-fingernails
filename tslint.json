@@ -20,6 +20,9 @@
         "member-access": [
             false
         ],
+        "member-ordering": [
+            false
+        ],
         "variable-name": [
             true,
             "check-format",
