@@ -1,0 +1,30 @@
+{
+  "name": "dirty-fingernails",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "devstart": "nodemon --watch dist ./dist/index.js",
+    "start": "node ./dist/index.js"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "bunyan": "^1.8.10",
+    "discord.js": "^11.1.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.11.0",
+    "uws": "^8.14.0"
+  },
+  "devDependencies": {
+    "@types/bunyan": "^1.8.0",
+    "@types/lodash": "^4.14.67",
+    "@types/mongoose": "^4.7.18",
+    "@types/node": "^8.0.6",
+    "nodemon": "^1.11.0",
+    "typescript": "^2.4.1"
+  }
+}
