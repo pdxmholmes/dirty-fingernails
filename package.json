@@ -27,6 +27,7 @@
     "@types/nconf": "0.0.34",
     "@types/node": "^8.0.6",
     "nodemon": "^1.11.0",
+    "tslint": "^5.4.3",
     "typescript": "^2.4.1"
   }
 }

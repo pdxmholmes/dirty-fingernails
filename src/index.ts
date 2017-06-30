@@ -6,7 +6,7 @@ import * as nconf from 'nconf';
 import { default as commands } from './commands';
 import { BotContext } from './context';
 
-function getConfigEnvironment() {
+function getConfigEnvironment(): string {
     switch (process.env.NODE_ENV) {
         case "production":
             return "";
