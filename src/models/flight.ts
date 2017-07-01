@@ -1,11 +1,22 @@
-export class Flight {
-    constructor(name: string, startTime: Date, campaign: string) {
-        this.name = name;
-        this.startTime = startTime;
-        this.campaign = campaign;
-    }
+import { Schema, Document, Model, model } from 'mongoose';
 
-    readonly name: string;
-    readonly startTime: Date;
-    readonly campaign: string;
+export interface IFlight {
+	name?: string;
+	startTime?: Date;
+	organizer?: string;
+	campaign?: string;
 }
+
+export const FlightSchema = new Schema({
+	name: String,
+	startTime: Date,
+	organizer: String,
+	campaign: String
+}, {
+		timestamps: true
+	});
+
+export interface IFlightModel extends IFlight, Document {
+}
+
+export const Flight = model<IFlightModel>('Flight', FlightSchema);
