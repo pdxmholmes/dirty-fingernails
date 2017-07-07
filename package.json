@@ -3,29 +3,41 @@
   "version": "0.1.0",
   "description": "",
   "private": true,
-  "main": "./dist/index.js",
+  "main": "./dist/service/index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "devstart": "nodemon --watch dist ./dist/index.js",
-    "start": "node ./dist/index.js"
+    "devstart": "nodemon --watch dist/service ./dist/service/index.js",
+    "start": "node ./dist/service/index.js",
+    "test": "mocha 'dist/tests/**/*.js'"
   },
-  "author": "",
+  "author": "Matt Holmes",
+  "contributors": [
+    "Brainling"
+  ],
   "license": "BSD-3-Clause",
   "dependencies": {
     "bunyan": "^1.8.10",
     "discord.js": "^11.1.0",
+    "humanize-duration": "^3.10.0",
     "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.0",
     "nconf": "^0.8.4",
+    "timestring": "^4.0.0",
     "uws": "^8.14.0"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.0",
+    "@types/chai": "^4.0.1",
     "@types/lodash": "^4.14.67",
+    "@types/mocha": "^2.2.41",
+    "@types/moment": "^2.13.0",
     "@types/mongoose": "^4.7.18",
     "@types/nconf": "0.0.34",
     "@types/node": "^8.0.6",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
     "tslint": "^5.4.3",
     "typescript": "^2.4.1"

@@ -1,6 +1,9 @@
 {
     "extends": "tslint:latest",
     "rules": {
+        "align": [
+            false
+        ],
         "interface-over-type-literal": false,
         "arrow-parens": false,
         "quotemark": [
@@ -38,6 +41,12 @@
             false
         ],
         "interface-name": [
+            false
+        ],
+        "indent": [
+            "tab"
+        ],
+        "max-classes-per-file": [
             false
         ]
     }
