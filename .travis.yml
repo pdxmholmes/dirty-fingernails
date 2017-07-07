@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - '8'
+dist: trusty
+
+script:
+  - npm install
+  - npm run build
+  - npm test
+  - npm prune --production
+  - docker build -t dirty-fingernails/bot:latest -t dirty-fingernails/bot:$TRAVIS_BUILD_NUMBER .
+
+# Todo eventuall push docker image
+# after_success:
+#  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+#  - docker push vipercloud/web:$TRAVIS_BUILD_NUMBER
+#  - docker push vipercloud/web:latest
