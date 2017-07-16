@@ -6,7 +6,7 @@ export interface IGroupAttribute {
 }
 
 export interface IGroup {
-	id: string;
+	groupId: string;
 	name: string;
 	startTime: Date;
   organizer: string;
@@ -17,7 +17,7 @@ export interface IGroup {
 }
 
 export const GroupSchema = new Schema({
-	id: String,
+	groupId: String,
 	name: String,
 	startTime: Date,
   organizer: String,

@@ -46,7 +46,7 @@ const listGroup: ICommand = {
 
       groups.forEach(g => {
         const fromNow = moment.duration(moment().diff(g.startTime));
-        request.reply(`**[${g.gameId.toUpperCase()}-${g.id}]** ${g.numberOfPlayers} player ${type} `
+        request.reply(`**[${g.gameId.toUpperCase()}-${g.groupId}]** ${g.numberOfPlayers} player ${type} `
           + `starting in ${humanizeDuration(fromNow, { largest: 2 })} organized by **${g.organizer}**.`);
       });
     }

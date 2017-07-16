@@ -59,7 +59,7 @@ const newGroup: ICommand = {
     const fromNow = humanizeDuration(args.timeUntilStart.asMilliseconds());
 
     const group: IGroup = {
-      id: Utils.newId(),
+      groupId: Utils.newId(),
       name: args.description,
       organizer: request.requestor,
       organizerId: request.requestorId,
@@ -78,7 +78,8 @@ const newGroup: ICommand = {
           requestorId: request.requestorId,
           type
         }, `Group created`);
-        request.replyDirect(`Created ${type} ${group.id}. It will start in ${fromNow}.`);
+        request.replyDirect(`Created ${type} ${game.id.toUpperCase()}-${group.groupId}. ` +
+          `It will start in ${fromNow}.`);
       })
       .catch(err => {
         log.error(err);

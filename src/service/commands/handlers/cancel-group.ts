@@ -39,12 +39,12 @@ const cancelGroup: ICommand = {
     try {
       const group = await Group.findOneAndRemove({
         gameId: game.id,
-        id: { $regex: new RegExp(`^${args.id}`, 'i') },
+        groupId: { $regex: new RegExp(`^${args.id}`, 'i') },
         organizerId: request.requestorId
       });
 
       if (group) {
-        request.replyDirect(`${type} ${game.id.toUpperCase()}-${group.id} has been canceled.`);
+        request.replyDirect(`${type} ${game.id.toUpperCase()}-${group.groupId} has been canceled.`);
       }
     }
     catch (err) {
