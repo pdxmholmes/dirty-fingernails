@@ -13,7 +13,5 @@ COPY node_modules ./node_modules
 
 ENV NODE_ENV production
 
-HEALTHCHECK CMD curl --fail http://localhost:5000/ || exit 1
-
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["bot"]

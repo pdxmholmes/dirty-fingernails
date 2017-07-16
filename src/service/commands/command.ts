@@ -8,7 +8,8 @@ export interface CommandHandler {
 
 export interface ICommandArgument {
 	name: string;
-	type: string;
+  type: string;
+  optional?: boolean;
 	options?: any;
 }
 

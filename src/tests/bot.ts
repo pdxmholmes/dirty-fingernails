@@ -64,7 +64,7 @@ describe('Bot', () => {
     expect(request).to.be.null;
   });
 
-  it('should treate empty whitelist as wildcard whitelist', () => {
+  it('should treat empty whitelist as wildcard whitelist', () => {
     const bot = new Bot({
       bot: {
         commandPrefix: '!',

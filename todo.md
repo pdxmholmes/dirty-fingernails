@@ -1,0 +1,2 @@
+- [ ] Re-write validation system to be a little less kludgy
+- [ ] Add simpler way to define arguments. Bit too verbose right now

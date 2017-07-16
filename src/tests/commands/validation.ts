@@ -103,6 +103,17 @@ describe('Commands', () => {
       expect(result.values['testString'] === 'Hello World');
     });
 
+    it('should correctly validate flag arguments', () => {
+      const defs = [{
+        name: 'testFlag',
+        type: 'flag'
+      }];
+
+      const result = validator.validate(defs, ['testFlag']);
+      expect(result.valid).to.be.true;
+      expect(result.values['testFlag']).to.be.true;
+    });
+
     it('should return usage as an error for missing arguments', () => {
       const defs = [{
         name: 'testString',

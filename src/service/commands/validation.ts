@@ -6,7 +6,7 @@ import { ICommandArgument } from './command';
 import { Utils } from '../utils';
 
 const validators = {
-  duration: (name: string, arg: string, options?: any): [IValidationError, any] => {
+  duration: (name: string, title: string, arg: string, options?: any): [IValidationError, any] => {
     const fromNow = timestring(arg);
     if (fromNow === 0) {
       return [{
@@ -36,12 +36,12 @@ const validators = {
     return [null, duration];
   },
 
-  number: (name: string, arg: string, options?: any): [IValidationError, any] => {
+  number: (name: string, title: string, arg: string, options?: any): [IValidationError, any] => {
     const val = parseFloat(arg);
     if (isNaN(val)) {
       return [{
         argument: name,
-        error: `${name} must be a number.`
+        error: `${title} must be a number.`
       }, null];
     }
 
@@ -49,13 +49,13 @@ const validators = {
       if (_.isNumber(options.min) && val < options.min) {
         return [{
           argument: name,
-          error: `${name} must be at least ${options.min}`
+          error: `${title} must be at least ${options.min}`
         }, null];
       }
       if (_.isNumber(options.max) && val > options.max) {
         return [{
           argument: name,
-          error: `${name} cannot be more than ${options.max}`
+          error: `${title} cannot be more than ${options.max}`
         }, null];
       }
     }
@@ -63,15 +63,19 @@ const validators = {
     return [null, val];
   },
 
-  string: (name: string, arg: string, options?: any): [IValidationError, any] => {
+  string: (name: string, title: string, arg: string, string, options?: any): [IValidationError, any] => {
     if (!arg) {
       return [{
         argument: name,
-        error: `${name} is required.`
+        error: `${title} is required.`
       }, null];
     }
 
     return [null, arg];
+  },
+
+  flag: (name: string, title: string, arg: string, options?: any): [IValidationError, any] => {
+    return [null, Utils.string.iequals(name, arg)];
   }
 };
 
@@ -98,7 +102,8 @@ export class ArgumentValidator {
       return new ValidationResult(true, {}, []);
     }
 
-    if (!args || args.length < defs.length) {
+    const requiredDefs = defs.filter(d => !d.optional);
+    if (!args || args.length < requiredDefs.length) {
       return new ValidationResult(false, {}, [
         {
           argument: 'usage',
@@ -112,12 +117,14 @@ export class ArgumentValidator {
     defs.forEach((def, idx) => {
       const validator = validators[def.type];
       const arg = args.length > idx ? args[idx] : '';
+
       if (!validator) {
         values[def.name] = arg;
         return;
       }
 
-      const [err, val] = validator(Utils.string.expandCamelCase(def.name), arg, def.options);
+      const title = Utils.string.expandCamelCase(def.name);
+      const [err, val] = validator(def.name, title, arg, def.options);
       if (err) {
         errors.push(err);
         return;

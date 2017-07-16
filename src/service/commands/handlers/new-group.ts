@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
+import { log } from '../../log';
 import { Bot } from '../../bot';
 import { Group, IGroup } from '../../models';
 import { Games } from '../../games';
@@ -48,11 +49,17 @@ const newGroup: ICommand = {
   handler: async (request: IBotRequest, params: string[], rawArgs: any) => {
     const type = params[0].toLowerCase();
     const game = Games.fromGroupTitle(type);
+    if (!game) {
+      log.warn(`Uknown game type: ${type}`);
+      return;
+    }
 
     const args = rawArgs as INewGroupArguments;
     const fromNow = humanizeDuration(args.timeUntilStart.asMilliseconds());
 
+    const group: IGroup = {
 
+    };
 
     request.replyDirect(`Received your flight request for ${fromNow}`);
   }
