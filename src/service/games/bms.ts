@@ -1,7 +1,7 @@
 import { IGame } from './game';
 
 export const Bms: IGame = {
-  id: 'falcon-bms',
+  id: 'bms',
   name: 'Falcon BMS',
   groupTitle: 'flight',
   aliases: [

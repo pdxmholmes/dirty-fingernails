@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
+import { Utils } from '../../utils';
 import { log } from '../../log';
 import { Bot } from '../../bot';
 import { Group, IGroup } from '../../models';
@@ -58,10 +59,31 @@ const newGroup: ICommand = {
     const fromNow = humanizeDuration(args.timeUntilStart.asMilliseconds());
 
     const group: IGroup = {
-
+      id: Utils.newId(),
+      name: args.description,
+      organizer: request.requestor,
+      organizerId: request.requestorId,
+      startTime: moment().add(args.timeUntilStart).toDate(),
+      gameId: game.id,
+      numberOfPlayers: args.numberOfPlayers,
+      attributes: [
+        { name: 'campaign', value: args.campaign }
+      ]
     };
 
-    request.replyDirect(`Received your flight request for ${fromNow}`);
+    Group.create(group)
+      .then(() => {
+        log.info({
+          requestor: request.requestor,
+          requestorId: request.requestorId,
+          type
+        }, `Group created`);
+        request.replyDirect(`Created ${type} ${group.id}. It will start in ${fromNow}.`);
+      })
+      .catch(err => {
+        log.error(err);
+        request.replyDirect(`An error occured creating your ${type}. Please contact an admin.`);
+      });
   }
 };
 

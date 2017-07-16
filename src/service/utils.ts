@@ -6,10 +6,23 @@ export interface IStringUtils {
 }
 
 export interface IUtils {
+  newId(): string;
   string: IStringUtils;
 }
 
+const ID_LENGTH = 4;
+
 class Utilities implements IUtils {
+  newId(): string {
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const id = Array(ID_LENGTH);
+    for (let i = 0; i < ID_LENGTH; i++) {
+      id[i] = possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return id.join('');
+  }
+
   string: IStringUtils = {
     expandCamelCase: (str: string): string => {
       return str.replace(/([a-z])([A-Z])/g, '$1 $2')

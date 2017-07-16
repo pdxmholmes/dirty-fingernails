@@ -6,11 +6,13 @@ export interface IGroupAttribute {
 }
 
 export interface IGroup {
-	id?: string;
-	name?: string;
-	startTime?: Date;
-	organizer?: string;
-	gameId?: string;
+	id: string;
+	name: string;
+	startTime: Date;
+  organizer: string;
+  organizerId: string;
+  gameId: string;
+  numberOfPlayers: number;
 	attributes?: IGroupAttribute[];
 }
 
@@ -18,8 +20,10 @@ export const GroupSchema = new Schema({
 	id: String,
 	name: String,
 	startTime: Date,
-	organizer: String,
-	gameId: String,
+  organizer: String,
+  organizerId: String,
+  gameId: String,
+  numberOfPlayers: Number,
 	attributes: [{
 		name: String,
 		value: String
