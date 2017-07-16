@@ -1,53 +1,53 @@
 {
-    "extends": "tslint:latest",
-    "rules": {
-        "align": [
-            false
-        ],
-        "interface-over-type-literal": false,
-        "arrow-parens": false,
-        "quotemark": [
-            true,
-            "single"
-        ],
-        "no-console": [
-            false
-        ],
-        "only-arrow-functions": [
-            false
-        ],
-        "object-literal-sort-keys": false,
-        "trailing-comma": [
-            false
-        ],
-        "member-access": [
-            false
-        ],
-        "member-ordering": [
-            false
-        ],
-        "variable-name": [
-            true,
-            "check-format",
-            "allow-leading-underscore",
-            "allow-pascal-case"
-        ],
-        "one-line": [
-            true,
-            "check-open-brace",
-            "check-whitespace"
-        ],
-        "ordered-imports": [
-            false
-        ],
-        "interface-name": [
-            false
-        ],
-        "indent": [
-            "tab"
-        ],
-        "max-classes-per-file": [
-            false
-        ]
-    }
+  "extends": "tslint:latest",
+  "rules": {
+    "align": [
+      false
+    ],
+    "interface-over-type-literal": false,
+    "arrow-parens": false,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "no-console": [
+      false
+    ],
+    "only-arrow-functions": [
+      false
+    ],
+    "object-literal-sort-keys": false,
+    "trailing-comma": [
+      false
+    ],
+    "member-access": [
+      false
+    ],
+    "member-ordering": [
+      false
+    ],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ],
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-whitespace"
+    ],
+    "ordered-imports": [
+      false
+    ],
+    "interface-name": [
+      false
+    ],
+    "indent": [
+      "tab"
+    ],
+    "max-classes-per-file": [
+      false
+    ]
+  }
 }
