@@ -1,2 +1,3 @@
 - [ ] Re-write validation system to be a little less kludgy
 - [ ] Add simpler way to define arguments. Bit too verbose right now
+- [ ] Refactor code structure so imports aren't so wild when importing local code
