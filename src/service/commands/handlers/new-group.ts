@@ -1,8 +1,4 @@
-import * as Discord from 'discord.js';
-import * as timestring from 'timestring';
 import * as moment from 'moment';
-import * as _ from 'lodash';
-import * as humanizeDuration from 'humanize-duration';
 
 import { Bot, IBotRequest, Utils, log } from '../../core';
 import { Group, IGroup, IGroupModel } from '../../models';
@@ -52,36 +48,34 @@ const newGroup: ICommand = {
       return;
     }
 
-    const args = rawArgs as INewGroupArguments;
-    const fromNow = humanizeDuration(args.timeUntilStart.asMilliseconds());
+    try {
+      const args = rawArgs as INewGroupArguments;
+      const fromNow = Utils.friendlyDuration(args.timeUntilStart);
 
-    const group: IGroup = {
-      groupId: Utils.newId(),
-      name: args.description,
-      organizer: request.requestor,
-      organizerId: request.requestorId,
-      startTime: moment().add(args.timeUntilStart).toDate(),
-      gameId: game.id,
-      numberOfPlayers: args.numberOfPlayers,
-      attributes: [
-        { name: 'campaign', value: args.campaign }
-      ]
-    };
+      const group: IGroup = {
+        groupId: Utils.newId(),
+        name: args.description,
+        organizer: request.requestor.name,
+        organizerId: request.requestor.id,
+        startTime: moment().add(args.timeUntilStart).toDate(),
+        gameId: game.id,
+        numberOfPlayers: args.numberOfPlayers,
+        attributes: [
+          { name: 'campaign', value: args.campaign }
+        ]
+      };
 
-    Group.create(group)
-      .then(g => {
-        log.info({
-          requestor: request.requestor,
-          requestorId: request.requestorId,
-          type
-        }, `Group created`);
-        request.replyDirect(`Created ${type} ${g.fullId()}. ` +
-          `It will start in ${fromNow}.`);
-      })
-      .catch(err => {
-        log.error(err);
-        request.replyDirect(`An error ocurred creating your ${type}. Please contact an admin.`);
-      });
+      const g = await Group.create(group);
+      log.info({
+        requestor: request.requestor,
+        type
+      }, `Group created`);
+      request.replyDirect(`Created ${type} ${g.fullId()}. It will start in ${fromNow}.`);
+    }
+    catch (err) {
+      log.error(err);
+      request.replyDirect(`An error ocurred creating your ${type}. Please contact an admin.`);
+    }
   }
 };
 

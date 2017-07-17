@@ -51,7 +51,7 @@ const joinGroup: ICommand = {
     }
 
     const fromNow = moment.duration(moment().diff(group.startTime));
-    if (group.reservations.some(r => r.playerId === request.requestorId)) {
+    if (group.reservations.some(r => r.playerId === request.requestor.id)) {
       return request.replyDirect([
         `You've already reserved a slot in ${group.fullId()}.`,
         `The ${game.groupTitle} starts in ${humanizeDuration(fromNow, { largest: 2})}.`
@@ -60,8 +60,8 @@ const joinGroup: ICommand = {
 
     const isReserve = group.reservations.length >= group.numberOfPlayers;
     group.reservations.push({
-      player: request.requestor,
-      playerId: request.requestorId,
+      player: request.requestor.name,
+      playerId: request.requestor.id,
       reservedAt: moment().toDate()
     });
 

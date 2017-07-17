@@ -1,8 +1,4 @@
 import * as Discord from 'discord.js';
-import * as timestring from 'timestring';
-import * as moment from 'moment';
-import * as _ from 'lodash';
-import * as humanizeDuration from 'humanize-duration';
 
 import { Bot, IBotRequest, log } from '../../core';
 import { Group, IGroup } from '../../models';
@@ -38,7 +34,7 @@ const cancelGroup: ICommand = {
       const group = await Group.findOneAndRemove({
         gameId: game.id,
         groupId: { $regex: new RegExp(`^${args.id}`, 'i') },
-        organizerId: request.requestorId
+        organizerId: request.requestor.id
       });
 
       if (group) {
@@ -47,7 +43,7 @@ const cancelGroup: ICommand = {
     }
     catch (err) {
       log.error(err);
-      request.replyDirect('There was an error. Please contact an admiin.');
+      request.replyDirect('There was an error. Please contact an admin.');
     }
   }
 };

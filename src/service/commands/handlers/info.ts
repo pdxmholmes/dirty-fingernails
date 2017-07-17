@@ -1,17 +1,13 @@
 import * as path from 'path';
 import * as Discord from 'discord.js';
-import * as timestring from 'timestring';
-import * as moment from 'moment';
-import * as _ from 'lodash';
 
-import { Bot, IBotRequest } from '../../core';
-import { Group, IGroup } from '../../models';
+import { IBotRequest } from '../../core';
 import { Games } from '../../games';
 import { ICommand } from '../command';
 
 const info: ICommand = {
   match: 'info',
-  handler: (request: IBotRequest, params: string[], args: string[]) => {
+  handler: async (request: IBotRequest, params: string[], args: string[]) => {
     const pkg = require('../../../../package.json');
     const embed = new Discord.RichEmbed()
       .setTitle('Dirty Fingernails')
@@ -20,7 +16,8 @@ const info: ICommand = {
       .addField('Version', pkg.version)
       .addField('Platform', `${process.platform} (${process.arch})`)
       .addField('Node', process.version)
-      .addField('Environment', JSON.stringify(process.versions));
+      .addField('Environment', JSON.stringify(process.versions))
+      .addField('Supported Games', Games.all.map(g => g.name).join(', '));
 
     request.replyDirect({ embed });
   }

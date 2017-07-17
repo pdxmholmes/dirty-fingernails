@@ -14,7 +14,11 @@ function createMockMessage(content: string) {
     },
     member: {
       displayName: 'TestUser',
-      id: '123456789'
+      id: '123456789',
+      roles: [
+        { name: 'RoleA' },
+        { name: 'RoleB' }
+      ]
     }
   };
 }

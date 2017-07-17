@@ -4,6 +4,9 @@
     "no-unused-expression": [
       false
     ],
-    "no-string-literal": false
+    "no-string-literal": false,
+    "object-literal-key-quotes": [
+      false
+    ]
   }
 }

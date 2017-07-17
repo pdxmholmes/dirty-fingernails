@@ -59,7 +59,6 @@ export class CommandService {
 
 		log.info({
 			invoker: request.requestor,
-			invokerId: request.requestorId,
 			command: request.command,
 			params,
 			arguments: request.arguments

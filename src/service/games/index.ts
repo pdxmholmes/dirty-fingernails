@@ -5,6 +5,8 @@ import { Utils } from '../core';
 export * from './game';
 
 export const Games = {
+  all: [ Bms ],
+
   Bms,
 
   fromGroupTitle: (title: string): IGame => {
