@@ -29,7 +29,7 @@ const cancelGroup: ICommand = {
     const type = params[0].toLowerCase();
     const game = Games.fromGroupTitle(type);
     if (!game) {
-      log.warn(`Uknown game type: ${type}`);
+      log.warn(`Unknown game type: ${type}`);
       return;
     }
 
@@ -42,7 +42,7 @@ const cancelGroup: ICommand = {
       });
 
       if (group) {
-        request.replyDirect(`${type} ${game.id.toUpperCase()}-${group.groupId} has been canceled.`);
+        request.replyDirect(`${type} ${group.fullId()} has been canceled.`);
       }
     }
     catch (err) {

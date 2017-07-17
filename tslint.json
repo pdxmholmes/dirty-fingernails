@@ -45,6 +45,9 @@
     ],
     "max-classes-per-file": [
       false
+    ],
+    "prefer-object-spread": [
+      false
     ]
   }
 }

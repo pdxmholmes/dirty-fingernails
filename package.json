@@ -5,7 +5,8 @@
   "private": true,
   "main": "./dist/service/index.js",
   "scripts": {
-    "prebuild": "rm -rf dist",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
     "build": "tsc",
     "lint": "tslint 'src/**/*.ts'",
     "watch": "tsc -w",

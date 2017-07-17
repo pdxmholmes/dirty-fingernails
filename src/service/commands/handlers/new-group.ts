@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
 import { Bot, IBotRequest, Utils, log } from '../../core';
-import { Group, IGroup } from '../../models';
+import { Group, IGroup, IGroupModel } from '../../models';
 import { Games } from '../../games';
 import { ICommand } from '../command';
 
@@ -48,7 +48,7 @@ const newGroup: ICommand = {
     const type = params[0].toLowerCase();
     const game = Games.fromGroupTitle(type);
     if (!game) {
-      log.warn(`Uknown game type: ${type}`);
+      log.warn(`Unknown game type: ${type}`);
       return;
     }
 
@@ -69,18 +69,18 @@ const newGroup: ICommand = {
     };
 
     Group.create(group)
-      .then(() => {
+      .then(g => {
         log.info({
           requestor: request.requestor,
           requestorId: request.requestorId,
           type
         }, `Group created`);
-        request.replyDirect(`Created ${type} ${game.id.toUpperCase()}-${group.groupId}. ` +
+        request.replyDirect(`Created ${type} ${g.fullId()}. ` +
           `It will start in ${fromNow}.`);
       })
       .catch(err => {
         log.error(err);
-        request.replyDirect(`An error occured creating your ${type}. Please contact an admin.`);
+        request.replyDirect(`An error ocurred creating your ${type}. Please contact an admin.`);
       });
   }
 };

@@ -5,6 +5,12 @@ export interface IGroupAttribute {
 	value: string;
 }
 
+export interface IGroupReservation {
+  player: string;
+  playerId: string;
+  reservedAt: Date;
+}
+
 export interface IGroup {
 	groupId: string;
 	name: string;
@@ -13,7 +19,8 @@ export interface IGroup {
   organizerId: string;
   gameId: string;
   numberOfPlayers: number;
-	attributes?: IGroupAttribute[];
+  attributes?: IGroupAttribute[];
+  reservations?: IGroupReservation[];
 }
 
 export const GroupSchema = new Schema({
@@ -27,12 +34,27 @@ export const GroupSchema = new Schema({
 	attributes: [{
 		name: String,
 		value: String
-	}]
+  }],
+  reservations: [{
+    player: String,
+    playerId: String,
+    reservedAt: Date
+  }]
 }, {
 		timestamps: true
-	});
+  });
+
+GroupSchema.methods.fullId = function(): string {
+  return `${this.gameId.toUpperCase()}-${this.groupId.toUpperCase()}`;
+};
+
+GroupSchema.methods.reservationCount = function(): number {
+  return this.reservations ? this.reservations.length : 0;
+};
 
 export interface IGroupModel extends IGroup, Document {
+  fullId(): string;
+  reservationCount(): number;
 }
 
 export const Group = model<IGroupModel>('Group', GroupSchema);

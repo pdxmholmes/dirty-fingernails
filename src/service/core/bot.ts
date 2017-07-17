@@ -53,7 +53,8 @@ export class Bot {
 			this.client.on('error', this.onError.bind(this));
 
 			const token = nconf.get('discord:token');
-			await this.client.login(token);
+      await this.client.login(token);
+      this.notifier.start();
 		}
 		catch (err) {
 			log.error(err);

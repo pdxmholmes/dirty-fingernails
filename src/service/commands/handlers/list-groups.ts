@@ -26,7 +26,7 @@ const listGroup: ICommand = {
     const type = params[0].toLowerCase();
     const game = Games.fromGroupTitle(type);
     if (!game) {
-      log.warn(`Uknown game type: ${type}`);
+      log.warn(`Unknown game type: ${type}`);
       return;
     }
 
@@ -37,16 +37,40 @@ const listGroup: ICommand = {
         .sort('startTime').limit(10);
 
       const count = groups ? groups.length : 0;
-      request.reply(`There are ${count === 0 ? 'no' : count} ${type}s starting soon.`);
-      if (count === 0) {
-        return;
-      }
+      if (!args.detailed) {
+        request.reply(`There are ${count === 0 ? 'no' : count} ${type}s starting soon.`);
+        if (count === 0) {
+          return;
+        }
 
-      groups.forEach(g => {
-        const fromNow = moment.duration(moment().diff(g.startTime));
-        request.reply(`**[${g.gameId.toUpperCase()}-${g.groupId}]** ${g.numberOfPlayers} player ${type} `
-          + `starting in ${humanizeDuration(fromNow, { largest: 2 })} organized by **${g.organizer}**.`);
-      });
+        groups.forEach(g => {
+          const fromNow = moment.duration(moment().diff(g.startTime));
+          request.reply([
+            `**[${g.fullId()}]**  ${g.reservationCount()} / ${g.numberOfPlayers} ${game.playerPlural}`,
+            `${g.organizer}`,
+            `**${humanizeDuration(fromNow, { largest: 2 })}**`
+          ].join('  |  '));
+        });
+      }
+      else {
+        request.replyDirect(`There are ${count === 0 ? 'no' : count} ${type}s starting soon.`);
+        if (count === 0) {
+          return;
+        }
+
+        groups.forEach(g => {
+          const fromNow = moment.duration(moment().diff(g.startTime));
+          const embed = new Discord.RichEmbed();
+          embed
+            .setTitle(`${g.fullId()} - ${humanizeDuration(fromNow, { largest: 2 })}`)
+            .setDescription(g.name)
+            .setAuthor(g.organizer)
+            .addField(_.capitalize(game.playerPlural),
+            g.reservations.map(r => r.player).join('\n'));
+
+          request.replyDirect({ embed });
+        });
+      }
     }
     catch (err) {
       log.error(err);
