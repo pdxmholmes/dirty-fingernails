@@ -4,8 +4,9 @@ import 'mocha';
 
 import { ArgumentValidator } from '../../service/commands/validation';
 
+let validator: ArgumentValidator = null;
 describe('Commands', () => {
-  const validator = new ArgumentValidator();
+  beforeEach(() => validator = new ArgumentValidator());
 
   describe('validation', () => {
     it('should correctly validate duration arguments', () => {
@@ -47,8 +48,6 @@ describe('Commands', () => {
       const maxResult = validator.validate(defs, ['65m']);
       expect(maxResult.valid).to.be.false;
       expect(maxResult.errors.length).to.equal(1);
-
-
     });
 
     it('should correctly validate number arguments', () => {

@@ -1,6 +1,6 @@
 import { Bms } from './bms';
 import { IGame } from './game';
-import { Utils } from '../utils';
+import { Utils } from '../core';
 
 export * from './game';
 
@@ -15,7 +15,7 @@ export const Games = {
     const key = Object.keys(Games)
       .find(k => Games[k] &&
         Games[k].groupTitle &&
-        Utils.string.iequals(Games[k].groupTitle, title));
+        Utils.iequals(Games[k].groupTitle, title));
 
     if (!key) {
       return null;

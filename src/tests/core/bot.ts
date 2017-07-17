@@ -1,8 +1,7 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { Bot } from '../service/bot';
-import { IBotRequest } from '../service/request';
+import { Bot, IBotRequest } from '../../service/core';
 
 function createMockMessage(content: string) {
   return {
@@ -20,16 +19,19 @@ function createMockMessage(content: string) {
   };
 }
 
+let bot: Bot = null;
 describe('Bot', () => {
-  const bot = new Bot({
-    bot: {
-      commandPrefix: '!',
-      channels: {
-        whitelist: [
-          'test'
-        ]
+  beforeEach(() => {
+    bot = new Bot({
+      bot: {
+        commandPrefix: '!',
+        channels: {
+          whitelist: [
+            'test'
+          ]
+        }
       }
-    }
+    });
   });
 
   it('should parse commands correctly', () => {
@@ -65,7 +67,7 @@ describe('Bot', () => {
   });
 
   it('should treat empty whitelist as wildcard whitelist', () => {
-    const bot = new Bot({
+    const noWhitelistBot = new Bot({
       bot: {
         commandPrefix: '!',
         channels: {
@@ -77,7 +79,7 @@ describe('Bot', () => {
     const message = createMockMessage('!message on, bad, channel');
     message.channel.name = 'test2';
 
-    const request = (bot as any).processRequest(message) as IBotRequest;
+    const request = (noWhitelistBot as any).processRequest(message) as IBotRequest;
     expect(request).to.be.not.null;
   });
 });

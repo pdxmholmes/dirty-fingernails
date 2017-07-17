@@ -5,7 +5,7 @@
 
 #### Configuration
 
-Configuration can be provided in the form of a JSON file or as environment variables. When using environment variables the names are hierarchy delimited using a colon (:).
+Configuration can be provided in the form of a JSON file or as environment variables. When using environment variables the names are hierarchy delimited using a colon (:). A startup the bot will look for a file named config.json and load it if it is available. Environment variables will then be loaded. Values from envrionment variables will override values from the JSON file.
 
 Example JSON:
 ```json

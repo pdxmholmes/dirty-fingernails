@@ -5,10 +5,15 @@
   "private": true,
   "main": "./dist/service/index.js",
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "tsc",
+    "lint": "tslint 'src/**/*.ts'",
     "watch": "tsc -w",
+
     "devstart": "nodemon --watch dist/service ./dist/service/index.js",
     "start": "node ./dist/service/index.js",
+
+    "pretest": "npm run lint",
     "test": "mocha 'dist/tests/**/*.js'"
   },
   "author": "Matt Holmes",
@@ -39,7 +44,7 @@
     "chai": "^4.0.2",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
-    "tslint": "^5.4.3",
+    "tslint": "^5.5.0",
     "typescript": "^2.4.1"
   }
 }

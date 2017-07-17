@@ -3,7 +3,7 @@ import * as timestring from 'timestring';
 import * as _ from 'lodash';
 
 import { ICommandArgument } from './command';
-import { Utils } from '../utils';
+import { Utils } from '../core';
 
 const validators = {
   duration: (name: string, title: string, arg: string, options?: any): [IValidationError, any] => {
@@ -75,7 +75,7 @@ const validators = {
   },
 
   flag: (name: string, title: string, arg: string, options?: any): [IValidationError, any] => {
-    return [null, Utils.string.iequals(name, arg)];
+    return [null, Utils.iequals(name, arg)];
   }
 };
 
@@ -85,15 +85,15 @@ export interface IValidationError {
 }
 
 export class ValidationResult {
+  readonly valid: boolean;
+  readonly values: any;
+  readonly errors: IValidationError[];
+
   constructor(valid: boolean, values: any, errors?: IValidationError[]) {
     this.valid = valid;
     this.values = values;
     this.errors = errors || [];
   }
-
-  readonly valid: boolean;
-  readonly values: any;
-  readonly errors: IValidationError[];
 }
 
 export class ArgumentValidator {
@@ -123,7 +123,7 @@ export class ArgumentValidator {
         return;
       }
 
-      const title = Utils.string.expandCamelCase(def.name);
+      const title = Utils.expandCamelCase(def.name);
       const [err, val] = validator(def.name, title, arg, def.options);
       if (err) {
         errors.push(err);
@@ -138,7 +138,7 @@ export class ArgumentValidator {
 
   private getCommandUsage(defs: ICommandArgument[]): string {
     return defs
-      .map(d => `<${Utils.string.expandCamelCase(d.name).toLowerCase()}>`)
+      .map(d => `<${Utils.expandCamelCase(d.name).toLowerCase()}>`)
       .join(', ');
   }
 }

@@ -4,17 +4,19 @@ import * as nconf from 'nconf';
 import * as mongoose from 'mongoose';
 (mongoose as any).Promise = Promise;
 
-import { CommandService } from './commands';
-import { Games } from './games';
-import { IBotRequest, BotRequest } from './request';
 import { Utils } from './utils';
+import { CommandService } from '../commands';
+import { Games } from '../games';
+import { IBotRequest, BotRequest } from './request';
 import { log } from './log';
+import { Notifier } from './notifier';
 
 export class Bot {
-	constructor(options?: any) {
-		this.client = new Discord.Client();
-		this.commandService = new CommandService();
+	readonly client: Discord.Client = new Discord.Client();
+  private readonly commandService: CommandService = new CommandService();
+  private readonly notifier: Notifier = new Notifier();
 
+	constructor(options?: any) {
 		// Options are fed in whole for unit testing
 		if (options) {
 			nconf.defaults(options);
@@ -23,7 +25,7 @@ export class Bot {
 			nconf
 				.defaults({
 					bot: {
-						commandPrefix: '!'
+            commandPrefix: '!'
 					}
 				})
 				.env()
@@ -102,12 +104,12 @@ export class Bot {
 	}
 
 	private isChannelWhitelisted(channel: string): boolean {
-		const whitelist = nconf.get('bot:channels:whitelist') as string[];
+    const whitelist = nconf.get('bot:channels:whitelist') as string[];
 		if (!channel || !_.isArray(whitelist) || whitelist.length < 1) {
 			return true;
 		}
 
-		return whitelist.some(c => Utils.string.iequals(c, channel));
+		return whitelist.some(c => Utils.iequals(c, channel));
 	}
 
 	private getConfigEnvironment(): string {
@@ -119,7 +121,4 @@ export class Bot {
 				return 'dev';
 		}
 	}
-
-	readonly client: Discord.Client;
-	private readonly commandService: CommandService;
 }

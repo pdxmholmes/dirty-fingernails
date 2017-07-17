@@ -4,13 +4,10 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
-import { Utils } from '../../utils';
-import { log } from '../../log';
-import { Bot } from '../../bot';
+import { Bot, IBotRequest, Utils, log } from '../../core';
 import { Group, IGroup } from '../../models';
 import { Games } from '../../games';
 import { ICommand } from '../command';
-import { IBotRequest } from '../../request';
 
 interface INewGroupArguments {
   timeUntilStart: moment.Duration;

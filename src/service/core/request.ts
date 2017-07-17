@@ -14,6 +14,12 @@ export interface IBotRequest {
 }
 
 export class BotRequest implements IBotRequest {
+  readonly command: string;
+  readonly arguments: string[];
+  readonly requestor: string;
+  readonly requestorId: string;
+  private readonly original: Discord.Message;
+
   constructor(command: string, args: string[], original: Discord.Message) {
     this.command = command;
     this.arguments = args;
@@ -29,10 +35,4 @@ export class BotRequest implements IBotRequest {
   replyDirect(response: string | RequestEmbed) {
     this.original.member.send(response);
   }
-
-  readonly command: string;
-  readonly arguments: string[];
-  readonly requestor: string;
-  readonly requestorId: string;
-  private readonly original: Discord.Message;
 }
