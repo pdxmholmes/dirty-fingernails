@@ -4,16 +4,18 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
-import { Bot, IBotRequest, log } from '../../core';
-import { Group, IGroup } from '../../models';
-import { Games } from '../../games';
+import { IBotRequest, log } from '../../../core';
+import { Group, IGroup } from '../../../core/models';
+import { IGame } from '../../../core/games';
 import { ICommand } from '../command';
+import { needsGame } from '../traits';
 
 interface ListGroupArgs {
   detailed?: boolean;
 }
 
 const listGroup: ICommand = {
+  id: 'list-groups',
   match: /list-(.*)s/i,
   arguments: [
     {
@@ -22,14 +24,12 @@ const listGroup: ICommand = {
       optional: true
     }
   ],
+  traits: [
+    needsGame
+  ],
   handler: async (request: IBotRequest, params: string[], rawArgs: any) => {
-    const type = params[0].toLowerCase();
-    const game = Games.fromGroupTitle(type);
-    if (!game) {
-      log.warn(`Unknown game type: ${type}`);
-      return;
-    }
-
+    const type = request.data.gameType as string;
+    const game = request.data.game as IGame;
     const args = rawArgs as ListGroupArgs;
     try {
       const groups = await Group

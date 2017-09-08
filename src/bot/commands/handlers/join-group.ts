@@ -3,43 +3,33 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
-import { Bot, IBotRequest, log } from '../../core';
-import { Group, IGroup } from '../../models';
-import { Games } from '../../games';
+import { IBotRequest, log } from '../../../core';
+import { Group, IGroupModel } from '../../../core/models';
+import { Games, IGame } from '../../../core/games';
 import { ICommand } from '../command';
+import { needsGame, needsGroup } from '../traits';
 
 interface JoinGroupArgs {
-  groupId: string;
+  id: string;
 }
 
 const joinGroup: ICommand = {
+  id: 'join-group',
   match: /join-(.*)/i,
   arguments: [
     {
-      name: 'groupId',
+      name: 'id',
       type: 'string'
     }
   ],
+  traits: [
+    needsGame,
+    needsGroup
+  ],
   handler: async (request: IBotRequest, params: string[], rawArgs: any) => {
-    const type = params[0].toLowerCase();
-    const game = Games.fromGroupTitle(type);
-    if (!game) {
-      log.warn(`Unknown game type: ${type}`);
-      return;
-    }
-
-    const args = rawArgs as JoinGroupArgs;
-    const idMatch = new RegExp(`^${game.id}-(.*)`, 'i');
-    const match = idMatch.exec(args.groupId);
-    let groupId = args.groupId;
-    if (match) {
-      groupId = match[1];
-    }
-
-    const group = await Group.findOne({
-      gameId: game.id,
-      groupId: { $regex: new RegExp(`^${groupId}`, 'i') }
-    });
+    const game = request.data.game as IGame;
+    const groupId = request.data.groupId as string;
+    const group = request.data.group as IGroupModel;
 
     if (!group) {
       return request.replyDirect(

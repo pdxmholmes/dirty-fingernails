@@ -1,7 +1,12 @@
 import * as moment from 'moment';
 
-import { log } from './log';
-import { Group, IGroup, Notification, INotification } from '../models';
+import { log } from '../core';
+import {
+  Group,
+  IGroup,
+  Notification,
+  INotification
+} from '../core/models';
 
 export class Notifier {
   readonly tickRate = 60 * 1000;

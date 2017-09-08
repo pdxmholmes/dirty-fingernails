@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as moment from 'moment';
 import 'mocha';
 
-import { ArgumentValidator } from '../../service/commands/validation';
+import { ArgumentValidator } from '../../../bot/commands/validation';
 
 let validator: ArgumentValidator = null;
 describe('Commands', () => {

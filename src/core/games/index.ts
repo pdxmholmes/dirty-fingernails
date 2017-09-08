@@ -1,6 +1,6 @@
 import { Bms } from './bms';
 import { IGame } from './game';
-import { Utils } from '../core';
+import { Utils } from '../utils';
 
 export * from './game';
 

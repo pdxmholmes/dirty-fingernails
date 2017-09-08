@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { Bot, IBotRequest } from '../../service/core';
+import { Bot } from '../../bot';
+import { IBotRequest } from '../../core';
 
 function createMockMessage(content: string) {
   return {

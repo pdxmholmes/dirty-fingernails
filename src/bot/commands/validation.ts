@@ -3,7 +3,7 @@ import * as timestring from 'timestring';
 import * as _ from 'lodash';
 
 import { ICommandArgument } from './command';
-import { Utils } from '../core';
+import { Utils } from '../../core';
 
 const validators = {
   duration: (name: string, title: string, arg: string, options?: any): [IValidationError, any] => {

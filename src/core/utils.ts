@@ -9,14 +9,15 @@ export interface IUtils {
   friendlyDuration(duration: moment.Duration): string;
 }
 
-const ID_LENGTH = 4;
+export const ID_LENGTH = 4;
+export const POSSIBLE_ID_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 class Utilities implements IUtils {
   newId(): string {
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const id = Array(ID_LENGTH);
     for (let i = 0; i < ID_LENGTH; i++) {
-      id[i] = possible.charAt(Math.floor(Math.random() * possible.length));
+      id[i] = POSSIBLE_ID_CHARACTERS.charAt(Math.floor(Math.random()
+        * POSSIBLE_ID_CHARACTERS.length));
     }
 
     return id.join('');

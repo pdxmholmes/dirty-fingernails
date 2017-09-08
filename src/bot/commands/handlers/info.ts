@@ -1,11 +1,12 @@
 import * as path from 'path';
 import * as Discord from 'discord.js';
 
-import { IBotRequest } from '../../core';
-import { Games } from '../../games';
+import { IBotRequest } from '../../../core';
+import { Games } from '../../../core/games';
 import { ICommand } from '../command';
 
 const info: ICommand = {
+  id: 'info',
   match: 'info',
   handler: async (request: IBotRequest, params: string[], args: string[]) => {
     const pkg = require('../../../../package.json');

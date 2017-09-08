@@ -21,10 +21,15 @@ export class Requestor {
   }
 }
 
+export interface RequestData {
+  [key: string]: any;
+}
+
 export interface IBotRequest {
   command: string;
   arguments: string[];
   requestor: Requestor;
+  data: RequestData;
   reply(msg: string | RequestEmbed);
   replyDirect(msg: string | RequestEmbed);
 }
@@ -33,6 +38,7 @@ export class BotRequest implements IBotRequest {
   readonly command: string;
   readonly arguments: string[];
   readonly requestor: Requestor;
+  readonly data = {};
   private readonly original: Discord.Message;
 
   constructor(command: string, args: string[], original: Discord.Message) {

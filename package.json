@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "description": "",
   "private": true,
-  "main": "./dist/service/index.js",
+  "main": "./dist/bot/index.js",
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
     "build": "tsc",
     "lint": "tslint 'src/**/*.ts'",
     "watch": "tsc -w",
-    "devstart": "nodemon --watch dist/service ./dist/service/index.js",
-    "start": "node ./dist/service/index.js",
+    "devstart": "nodemon --inspect --watch dist/bot ./dist/bot/index.js",
+    "start": "node ./dist/bot/index.js",
     "pretest": "npm run lint",
     "test": "mocha 'dist/tests/**/*.js'"
   },

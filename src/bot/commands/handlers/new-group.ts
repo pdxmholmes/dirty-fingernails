@@ -1,9 +1,18 @@
 import * as moment from 'moment';
 
-import { Bot, IBotRequest, Utils, log } from '../../core';
-import { Group, IGroup, IGroupModel } from '../../models';
-import { Games } from '../../games';
+import {
+  IBotRequest,
+  Utils,
+  log
+} from '../../../core';
+import {
+  Group,
+  IGroup,
+  IGroupModel
+} from '../../../core/models';
+import { IGame } from '../../../core/games';
 import { ICommand } from '../command';
+import { needsGame } from '../traits';
 
 interface INewGroupArguments {
   timeUntilStart: moment.Duration;
@@ -13,6 +22,7 @@ interface INewGroupArguments {
 }
 
 const newGroup: ICommand = {
+  id: 'new-group',
   match: /new-(.+)/i,
   arguments: [
     {
@@ -40,19 +50,18 @@ const newGroup: ICommand = {
       type: 'string'
     }
   ],
+  traits: [
+    needsGame
+  ],
   handler: async (request: IBotRequest, params: string[], rawArgs: any) => {
-    const type = params[0].toLowerCase();
-    const game = Games.fromGroupTitle(type);
-    if (!game) {
-      log.warn(`Unknown game type: ${type}`);
-      return;
-    }
+    const type = request.data.gameType as string;
+    const game = request.data.game as IGame;
 
     try {
       const args = rawArgs as INewGroupArguments;
       const fromNow = Utils.friendlyDuration(args.timeUntilStart);
 
-      const group: IGroup = {
+      const groupDef: IGroup = {
         groupId: Utils.newId(),
         name: args.description,
         organizer: request.requestor.name,
@@ -65,12 +74,12 @@ const newGroup: ICommand = {
         ]
       };
 
-      const g = await Group.create(group);
+      const group = await Group.create(groupDef);
       log.info({
         requestor: request.requestor,
         type
       }, `Group created`);
-      request.replyDirect(`Created ${type} ${g.fullId()}. It will start in ${fromNow}.`);
+      request.replyDirect(`Created ${type} ${group.fullId()}. It will start in ${fromNow}.`);
     }
     catch (err) {
       log.error(err);

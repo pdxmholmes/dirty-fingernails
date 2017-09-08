@@ -4,17 +4,18 @@ import * as nconf from 'nconf';
 import * as mongoose from 'mongoose';
 (mongoose as any).Promise = Promise;
 
-import { Utils } from './utils';
-import { CommandService } from '../commands';
-import { Games } from '../games';
-import { IBotRequest, BotRequest } from './request';
-import { log } from './log';
-import { Notifier } from './notifier';
+import {
+  IBotRequest,
+  BotRequest,
+  Utils,
+  log
+} from '../core';
+import { Games } from '../core/games';
+import { ICommandService, commandService } from './commands';
 
 export class Bot {
 	readonly client: Discord.Client = new Discord.Client();
-  private readonly commandService: CommandService = new CommandService();
-  private readonly notifier: Notifier = new Notifier();
+  private readonly commandService: ICommandService;
 
 	constructor(options?: any) {
 		// Options are fed in whole for unit testing
@@ -25,12 +26,17 @@ export class Bot {
 			nconf
 				.defaults({
 					bot: {
-            commandPrefix: '!'
+            commandPrefix: '!',
+            permissions: {
+              'cancel-group': [ 'Regular' ]
+            }
 					}
 				})
 				.env()
 				.file(`config.${this.getConfigEnvironment()}.json`);
-		}
+    }
+
+   this.commandService = commandService(nconf.get('bot:permissions'));
 	}
 
 	async run() {
@@ -54,7 +60,6 @@ export class Bot {
 
 			const token = nconf.get('discord:token');
       await this.client.login(token);
-      this.notifier.start();
 		}
 		catch (err) {
 			log.error(err);
@@ -68,7 +73,7 @@ export class Bot {
 			return;
 		}
 
-		this.commandService.invoke(this, request);
+		this.commandService.invoke(request);
 	}
 
 	private onError(err: Error) {
@@ -78,9 +83,14 @@ export class Bot {
 
 	private processRequest(message: Discord.Message): IBotRequest {
 		if (message.author.bot ||
-			!this.isChannelWhitelisted((message.channel as Discord.TextChannel).name)) {
+      !this.isChannelWhitelisted((message.channel as Discord.TextChannel).name)) {
 			return null;
-		}
+    }
+
+    // Ignore DM's for now
+    if (!message.member) {
+      return null;
+    }
 
 		const commandPrefix = nconf.get('bot:commandPrefix');
 		if (!message.content || !message.content.startsWith(commandPrefix)) {
@@ -123,3 +133,6 @@ export class Bot {
 		}
 	}
 }
+
+const bot = new Bot();
+bot.run();
