@@ -17,9 +17,15 @@ Example JSON:
     "url": "mongodb://localhost/uo"
   },
   "bot": {
+    "commandPrefix": "!",
     "channels": {
       "whitelist": [
         "bot-dev"
+      ]
+    },
+    "permissions": {
+      "cancel-group": [
+        "Regular", "Officer"
       ]
     }
   }
@@ -30,4 +36,6 @@ Option | Details
 ------ | -------
 discord:token | The Bot User token required for the bot to connect to a server.
 database:url | URL to connect to a MongoDB data store to store group data.
+bot:commandPrefix | Command prefix to match on. Defaults to !.
 bot:channels:whitelist | Array of channels that the bot will pay attention to. An empty list means all channels on the server.
+bot:permissions | Map of permissions, mapped by command id. Should map to an array of roles that can run the command. Some commands may hve programmatic overrides, such as allowing the owner of a group to cancel it even if they do not meet the role requirements.

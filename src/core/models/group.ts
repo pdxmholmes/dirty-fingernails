@@ -1,8 +1,8 @@
 import { Schema, Document, Model, model } from 'mongoose';
 
 export interface IGroupAttribute {
-	name: string;
-	value: string;
+  name: string;
+  value: string;
 }
 
 export interface IGroupReservation {
@@ -12,9 +12,9 @@ export interface IGroupReservation {
 }
 
 export interface IGroup {
-	groupId: string;
-	name: string;
-	startTime: Date;
+  groupId: string;
+  name: string;
+  startTime: Date;
   organizer: string;
   organizerId: string;
   gameId: string;
@@ -24,16 +24,16 @@ export interface IGroup {
 }
 
 export const GroupSchema = new Schema({
-	groupId: String,
-	name: String,
-	startTime: Date,
+  groupId: String,
+  name: String,
+  startTime: Date,
   organizer: String,
   organizerId: String,
   gameId: String,
   numberOfPlayers: Number,
-	attributes: [{
-		name: String,
-		value: String
+  attributes: [{
+    name: String,
+    value: String
   }],
   reservations: [{
     player: String,
@@ -41,7 +41,7 @@ export const GroupSchema = new Schema({
     reservedAt: Date
   }]
 }, {
-		timestamps: true
+    timestamps: true
   });
 
 GroupSchema.methods.fullId = function(): string {

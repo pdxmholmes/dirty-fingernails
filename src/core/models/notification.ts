@@ -15,8 +15,8 @@ export const NotificationSchema = new Schema({
   group: { type: Schema.Types.ObjectId, ref: 'Group' },
   type: Number
 }, {
-		timestamps: true
-	});
+    timestamps: true
+  });
 
 export interface INotificationModel extends INotification, Document {
 }

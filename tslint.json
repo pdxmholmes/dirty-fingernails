@@ -40,9 +40,6 @@
     "interface-name": [
       false
     ],
-    "indent": [
-      "tab"
-    ],
     "max-classes-per-file": [
       false
     ],
