@@ -7,8 +7,7 @@ script:
   - npm install
   - npm run build
   - npm test
-  - npm prune --production
-  - docker build -t dirty-fingernails/bot:latest -t dirty-fingernails/bot:$TRAVIS_BUILD_NUMBER .
+  - npm prune --production.
 
 # Todo eventuall push docker image
 # after_success:

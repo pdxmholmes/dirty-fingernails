@@ -1,8 +1,18 @@
 import { expect } from 'chai';
 import 'mocha';
+import * as sinon from 'sinon';
+import * as proxyquire from 'proxyquire';
 
-import { Bot } from '../../bot';
 import { IBotRequest } from '../../core';
+
+const sandbox = sinon.sandbox.create();
+const mongoose = {
+  connect: sandbox.stub().resolves()
+};
+const botModule = proxyquire('../../bot', {
+  'mongoose': mongoose
+});
+const Bot = botModule.Bot;
 
 function createMockMessage(content: string) {
   return {
@@ -24,7 +34,7 @@ function createMockMessage(content: string) {
   };
 }
 
-let bot: Bot = null;
+let bot = null;
 describe('Bot', () => {
   beforeEach(() => {
     bot = new Bot({
