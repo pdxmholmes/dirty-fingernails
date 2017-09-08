@@ -9,8 +9,16 @@ const sandbox = sinon.sandbox.create();
 const mongoose = {
   connect: sandbox.stub().resolves()
 };
+const Discord = {
+  Client: class {
+    on = sandbox.stub();
+    login = sandbox.stub().resolves();
+  }
+};
+
 const botModule = proxyquire('../../bot', {
-  'mongoose': mongoose
+  'mongoose': mongoose,
+  'discord.js': Discord
 });
 const Bot = botModule.Bot;
 
