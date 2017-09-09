@@ -14,7 +14,8 @@
     "removeComments": true,
     "sourceMap": true,
     "inlineSources": true,
-    "newLine": "LF"
+    "newLine": "LF",
+    "noUnusedLocals": true
   },
   "include": [
     "src/**/*.ts",

@@ -1,7 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as Discord from 'discord.js';
-import * as bunyan from 'bunyan';
 import * as _ from 'lodash';
 
 import {
@@ -9,8 +7,6 @@ import {
   Utils,
   log
 } from '../../core';
-import { Group, IGroup } from '../../core/models';
-import { Games } from '../../core/games';
 import { ICommand } from './command';
 import { ArgumentValidator } from './validation';
 

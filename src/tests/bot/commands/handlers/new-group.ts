@@ -5,9 +5,8 @@ import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 
 import { ICommand } from '../../../../bot/commands';
-import { IGroupModel } from '../../../../core/models';
 import { Games } from '../../../../core/games';
-import { IBotRequest, Requestor } from '../../../../core';
+import { Requestor } from '../../../../core';
 
 const sandbox = sinon.sandbox.create();
 const core = {

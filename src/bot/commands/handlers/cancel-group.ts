@@ -1,15 +1,7 @@
-import * as Discord from 'discord.js';
-
 import { IBotRequest, log } from '../../../core';
-import { IGame } from '../../../core/games';
 import { Group, IGroupModel } from '../../../core/models';
 import { ICommand } from '../command';
-import { commandService } from '../service';
 import { needsGame, needsGroup } from '../traits';
-
-interface ListGroupArgs {
-  detailed?: boolean;
-}
 
 interface CancelGroupArgs {
   id: string;
@@ -33,7 +25,7 @@ const cancelGroup: ICommand = {
     return group && group.organizerId === request.requestor.id;
   },
   handler: async (request: IBotRequest, params: string[], rawArgs: any) => {
-    const game = request.data.game as IGame;
+    // const game = request.data.game as IGame;
     const type = request.data.gameType as string;
     const group = request.data.group as IGroupModel;
     const args = rawArgs as CancelGroupArgs;

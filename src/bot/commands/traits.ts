@@ -1,6 +1,6 @@
-import { IBotRequest, log } from '../../core';
+import { IBotRequest } from '../../core';
 import { Games, IGame } from '../../core/games';
-import { IGroup, Group } from '../../core/models';
+import { Group } from '../../core/models';
 
 export type NextTrait = (success?: boolean) => void;
 export type CommandTrait = (request: IBotRequest, params: string[],

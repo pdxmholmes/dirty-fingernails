@@ -7,8 +7,7 @@ import {
 } from '../../../core';
 import {
   Group,
-  IGroup,
-  IGroupModel
+  IGroup
 } from '../../../core/models';
 import { IGame } from '../../../core/games';
 import { ICommand } from '../command';

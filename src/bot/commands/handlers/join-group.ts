@@ -1,17 +1,11 @@
-import * as Discord from 'discord.js';
 import * as moment from 'moment';
-import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
-import { IBotRequest, log } from '../../../core';
+import { IBotRequest } from '../../../core';
 import { Group, IGroupModel } from '../../../core/models';
-import { Games, IGame } from '../../../core/games';
+import { IGame } from '../../../core/games';
 import { ICommand } from '../command';
 import { needsGame, needsGroup } from '../traits';
-
-interface JoinGroupArgs {
-  id: string;
-}
 
 const joinGroup: ICommand = {
   id: 'join-group',

@@ -10,7 +10,6 @@ import {
   Utils,
   log
 } from '../core';
-import { Games } from '../core/games';
 import { ICommandService, commandService } from './commands';
 
 export class Bot {

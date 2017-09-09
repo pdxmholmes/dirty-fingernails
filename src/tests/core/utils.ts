@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import 'mocha';
-import * as _ from 'lodash';
 
 import { Utils, ID_LENGTH, POSSIBLE_ID_CHARACTERS } from '../../core';
 

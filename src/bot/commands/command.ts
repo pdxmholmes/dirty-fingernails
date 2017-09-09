@@ -1,4 +1,3 @@
-import * as Discord from 'discord.js';
 import { IBotRequest } from '../../core';
 import { CommandTrait } from './traits';
 

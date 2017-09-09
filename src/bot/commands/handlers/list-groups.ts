@@ -1,11 +1,10 @@
 import * as Discord from 'discord.js';
-import * as timestring from 'timestring';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as humanizeDuration from 'humanize-duration';
 
 import { IBotRequest, log } from '../../../core';
-import { Group, IGroup } from '../../../core/models';
+import { Group } from '../../../core/models';
 import { IGame } from '../../../core/games';
 import { ICommand } from '../command';
 import { needsGame } from '../traits';
